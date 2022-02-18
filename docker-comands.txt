@@ -1,0 +1,44 @@
+Docker useful commands
+
+
+docker --help   = comandos útiles
+
+Docker run --name nombreContenedor -d -p 3000:80 -p 8080:80 nginx:latest
+(Inicia contenedor llamado nombreContenedor, puerto 3000 de local y 80 de contenedor + otro p + imagen a usar)
+
+Docker ps = muestra contenedores en uso
+
+Docker ps -a = muestra todos contenedores
+
+Docker stop id/name = para el contenedor
+
+Docker start id/name = vuelve a iniciar el contenedor 
+
+Docker pull iso/imagen = instala iso o imagen deseada(mirar en la doc de docker)
+
+Docker ps --format="formato que queramos mostrar" =  podemos cambiar el formato para mostrar contenedores.
+
+
+
+VOLUMES: allows sharing of data. Files & folders between host and containers and between containers.
+-CONTAINERS
+docker run --name websitethree -v $(pwd):/usr/share/nginx/html:ro -d -p 8080:80  nginx:latest = (:ro -> read only...)
+Si no ponemos nada en el ":ro" pues tendremos otros privilegios mas avanzados, y al crear contenido en el contenedor, tambien
+Se creará dentro de nuestro host.
+
+docker exec -it websitethree bash = entramos dentro del contenedor/SO (websitethree es el nombre del contenedor)
+(Si creamos archivos dentro del contenedor serán solo de lectura)
+
+-VOLUMES
+ej: descargamos bootstrap single page template y metemos el 'proyecto' dentro de la carpeta compartida con El volumen, refrescamos la web localhost:8080 y vemos que tenemos la web descargada lista
+
+-SHARING VOLUMES (between containers)
+docker run --name website-copy --volumes-from websitethree -d -p 8081:80 nginx = nos copiara desde websitethree todo en el Puerto 8081 en este caso, o en el que especifiquemos
+
+
+
+
+
+
+
+
